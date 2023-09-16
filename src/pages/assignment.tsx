@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Data } from "../utils/types";
 import { DataDisplay } from "./dataDisplay";
+import { DataUpload } from "./dataUpload";
 
 export const Assignment = () => {
   const [historicalData, setHistoricalData] = useState([] as Data[]);
@@ -23,9 +24,10 @@ export const Assignment = () => {
       });
   }, []);
   return (
-    <div style={{textAlign: "center"}}>
+    <div style={{ textAlign: "center" }}>
       <DataDisplay title='Historical Data' data={historicalData} />
       <DataDisplay title='Forecast Data' data={forecastData} />
+      <DataUpload />
       <p>Authors: Stefan Georgiev, Lyuboslav Kotsev</p>
     </div>
   );

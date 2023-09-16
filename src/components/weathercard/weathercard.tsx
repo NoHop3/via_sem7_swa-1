@@ -4,6 +4,7 @@ import {
   WeatherCardInfo,
   WeatherCardWrapper,
 } from "./weathercard.styles";
+import { ISOStringToDateString } from "./weathercard.utils";
 
 export const WeatherCard = (props: WeatherCardProps) => {
   return (
@@ -22,7 +23,7 @@ export const WeatherCard = (props: WeatherCardProps) => {
             ? `${props.type}: ${props.value} ${props.unit}`
             : `${props.type}: from ${props.from} to ${props.to} ${props.unit}`}
         </p>
-        <p>{props.time}</p>
+        <p>{ISOStringToDateString(props.time)}</p>
       </WeatherCardInfo>
     </WeatherCardWrapper>
   );
