@@ -1,21 +1,32 @@
-import React, { useState, useEffect } from "react";
-import { Carousel } from "../components/carousel/carousel";
-import { ForecastData } from "../utils/types";
+import React, { useEffect, useState } from "react";
+import { Data } from "../utils/types";
+import { DataDisplay } from "./dataDisplay";
 
 export const Assignment = () => {
-  const [forecastData, setForecastData] = useState([] as ForecastData[]);
+  const [historicalData, setHistoricalData] = useState([] as Data[]);
+  const [forecastData, setForecastData] = useState([] as Data[]);
+  useEffect(() => {
+    fetch("http://localhost:8080/data")
+      .then((response) => response.json())
+      .then((data) => {
+        let i = data.reverse();
+        setHistoricalData(i);
+      });
+  }, []);
 
-    useEffect(() => {
-    fetch("https://api.openweathermap.org/data/2.5/forecast?q=sofia&appid=3e3b0b7b0b0b0b0b0b0b0b0b0b0b0b0b")
-        .then((response) => response.json())
-        .then((data) => setForecastData(data));
-    }, [forecastData]);
-
+  useEffect(() => {
+    fetch("http://localhost:8080/forecast")
+      .then((response) => response.json())
+      .then((data) => {
+        let i = data.reverse();
+        setForecastData(i);
+      });
+  }, []);
   return (
-    <div>
-      <h1>Assignment</h1>
-      <p>Authors: Stefan Georgiev 304284, Lyuboslav Kotsev</p>
-      <Carousel data={forecastData} />
+    <div style={{textAlign: "center"}}>
+      <DataDisplay title='Historical Data' data={historicalData} />
+      <DataDisplay title='Forecast Data' data={forecastData} />
+      <p>Authors: Stefan Georgiev, Lyuboslav Kotsev</p>
     </div>
   );
 };

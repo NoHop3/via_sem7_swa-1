@@ -1,17 +1,17 @@
-export type ForecastData = {
-  id: number;
-  city: {
-    name: string;
-    country: string;
-  };
-  image: Image;
-  date: string;
+export type Data = Image & {
+  value?: number;
+  type: string;
+  unit: string;
   time: string;
-  temperature: number;
-  humidity: number;
-  wind: number;
-  pressure: number;
+  place: string;
+  precipitation_type?: string;
+  precipation_types?: string[];
+  direction?: string;
+  directions?: string[];
+  from?: number;
+  to?: number;
 };
+
 export type Image = {
   src: string;
   alt: string;

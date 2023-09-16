@@ -1,5 +1,5 @@
-import { ForecastData } from "../../utils/types";
+import { Data } from "../../utils/types";
 
-export type WeatherCardProps = ForecastData & {
-    onClick: () => void;
+export type WeatherCardProps = Data & {
+  onClick: () => void;
 };

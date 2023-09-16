@@ -1,9 +1,11 @@
-import { ForecastData } from "../../utils/types";
+import { Data } from "../../utils/types";
 
 export type CarouselProps = {
-  data: ForecastData[];
+  data: Data[];
   height?: number;
   width?: number;
   autoPlay?: boolean;
   showSize?: number;
+  prevPage: () => void;
+  nextPage: () => void;
 };

@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Image } from "../../utils/types";
+import React from "react";
 import { CarouselProps } from "./carousel.props";
 import WeatherCard from "../weathercard"; // Import your WeatherCard component
 import {
@@ -10,39 +9,7 @@ import {
 } from "./carousel.styles";
 
 export const Carousel = (props: CarouselProps) => {
-  const { data, width, autoPlay, height, showSize } = props;
-  const [images, setImages] = useState([] as Image[]);
-  const [currentImage, setCurrentImage] = useState(0);
-
-  useEffect(() => {
-    fetch("https://picsum.photos/v2/list?page=2&limit=5")
-      .then((response) => response.json())
-      .then((data) => setImages(data));
-  }, []);
-
-  const nextImage = useCallback(() => {
-    setCurrentImage((currentImage + 1) % images.length);
-  }, [currentImage, images.length]);
-
-  const prevImage = useCallback(() => {
-    setCurrentImage((currentImage - 1 + images.length) % images.length);
-  }, [currentImage, images.length]);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    if (autoPlay) {
-      interval = setInterval(() => {
-        nextImage();
-      }, 3000); // Adjust the interval duration as needed
-
-      return () => {
-        if (interval) {
-          clearInterval(interval);
-        }
-      };
-    }
-  }, [autoPlay, nextImage]);
+  const { data, width, height, showSize, prevPage, nextPage } = props;
 
   return (
     <CarouselStyledWrapper width={width ?? 700} height={height ?? 400}>
@@ -58,8 +25,8 @@ export const Carousel = (props: CarouselProps) => {
         ))}
       </CarouselStyled>
       <CarouselButtonsWrapper>
-        <CarouselButton onClick={prevImage}>Prev</CarouselButton>
-        <CarouselButton onClick={nextImage}>Next</CarouselButton>
+        <CarouselButton onClick={prevPage}>Prev</CarouselButton>
+        <CarouselButton onClick={nextPage}>Next</CarouselButton>
       </CarouselButtonsWrapper>
     </CarouselStyledWrapper>
   );
