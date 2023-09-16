@@ -46,8 +46,20 @@ export const DataDisplay = (props: HistoricalDataProps) => {
       .then((response) => response.json())
       .then((data) => {
         let i = data.reverse();
-        setdataCopy(i.slice(currentPage * showSize, currentPage * showSize + showSize));
+        setdataCopy(
+          i.slice(currentPage * showSize, currentPage * showSize + showSize)
+        );
       });
+  };
+
+  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    let filteredData = data.filter((item) => item.type === event.target.value);
+    setdataCopy(
+      filteredData.slice(
+        currentPage * showSize,
+        currentPage * showSize + showSize
+      )
+    );
   };
 
   const handleWidthChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,6 +108,16 @@ export const DataDisplay = (props: HistoricalDataProps) => {
           <option value='Horsens'>Horsens</option>
           <option value='Copenhagen'>Copenhagen</option>
           <option value='Aarhus'>Aarhus</option>
+        </select>
+      </div>
+      <div>
+        <p>Filter by measurement type: </p>
+        <select id='type' name='type' onChange={handleTypeChange}>
+          <option value=''>None</option>
+          <option value='temperature'>Temperature</option>
+          <option value='cloud coverage'>Cloud coverage</option>
+          <option value='precipitation'>Precipitation</option>
+          <option value='wind speed'>Wind speed</option>
         </select>
       </div>
 
