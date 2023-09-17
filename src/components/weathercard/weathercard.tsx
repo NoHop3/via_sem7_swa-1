@@ -8,7 +8,7 @@ import { ISOStringToDateString } from "./weathercard.utils";
 
 export const WeatherCard = (props: WeatherCardProps) => {
   return (
-    <WeatherCardWrapper>
+    <WeatherCardWrapper onClick={props.onClick}>
       <h3>{props.place}</h3>
       <WeatherCardImage
         src={
